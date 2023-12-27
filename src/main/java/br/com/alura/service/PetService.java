@@ -1,13 +1,8 @@
 package br.com.alura.service;
 
-import br.com.alura.Client.ClientHttpConfiguration;
+import br.com.alura.client.ClientHttpConfiguration;
 import br.com.alura.domain.Pet;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -52,7 +47,6 @@ public class PetService {
         System.out.println("Digite o nome do arquivo CSV:");
         String nomeArquivo = new Scanner(System.in).nextLine();
 
-
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(nomeArquivo));
@@ -68,7 +62,7 @@ public class PetService {
             int idade = Integer.parseInt(campos[3]);
             String cor = campos[4];
             Float peso = Float.parseFloat(campos[5]);
-            Pet pet = new Pet(nome,tipo,raca,cor,idade,peso);
+            Pet pet = new Pet(tipo, nome, raca, idade, cor, peso);
             String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
             HttpResponse<String> response = client.dispararRequisicaoPost(uri, pet);
             int statusCode = response.statusCode();
